@@ -26,9 +26,9 @@ const MovieModel = new mongoose.Schema({
         type: String
     },
 
-    review: {
+    review: [{
         type: String
-    },
+    }],
 
     rating: {
         type: Number

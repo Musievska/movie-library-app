@@ -4,24 +4,21 @@ const UserSchema = new mongoose.Schema({
     username: {
         type: String,
         require: true,
-        min: 6,
-        max: 20,
-        unique: true
+        unique: true,
+        trim: true
     },
 
     email: {
         type: String,
         require: true,
         unique: true,
-        min: 10,
-        max: 50
+        trim: true
     },
 
     password: {
         type: String,
         require: true,
-        min: 8,
-        max: 20
+        trim: true
     },
 
     userFavorites: [{
@@ -32,4 +29,5 @@ const UserSchema = new mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
+module.exports = User;
