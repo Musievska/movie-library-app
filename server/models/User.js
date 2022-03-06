@@ -15,16 +15,37 @@ const UserSchema = new mongoose.Schema({
         trim: true
     },
 
+    active: {
+        type: Boolean,
+        default: false
+    },
+
     password: {
         type: String,
         require: true,
         trim: true
     },
 
+    ressetPasswordToken: {
+        type: String,
+        default: null
+    },
+
+    reserPasswordExp: {
+        type: Date,
+        default: null
+    },
+
     userFavorites: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Movie'
-    }]
+    }],
+
+
+     timestamps: {
+            createdAt: "createdAt",
+            updatedAt: "updatedAt",
+        },
 
 
 });
