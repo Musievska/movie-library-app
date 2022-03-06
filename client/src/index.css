@@ -66,3 +66,7 @@ label {
 .password-forgot:hover {
   text-decoration: none;
 }
+
+.text-danger {
+  font-size: 1.2rem;
+}

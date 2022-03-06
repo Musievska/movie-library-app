@@ -44,8 +44,7 @@ const RegisterForm = () => {
                         id="firstName"
                         name="firstName"
                         type="text"
-                        onChange={formik.handleChange}
-                        value={formik.values.firstName}
+                        {...formik.getFieldProps("firstName")}
                     />
                     {formik.errors.firstName ? (
                         <small className="form-text text-danger">
@@ -60,8 +59,7 @@ const RegisterForm = () => {
                         id="lastName"
                         name="lastName"
                         type="text"
-                        onChange={formik.handleChange}
-                        value={formik.values.lastName}
+                        {...formik.getFieldProps("firstName")}
                     />
                     {formik.errors.lastName ? (
                         <small className="form-text text-danger">
@@ -76,8 +74,8 @@ const RegisterForm = () => {
                         id="email"
                         name="email"
                         type="email"
-                        onChange={formik.handleChange}
-                        value={formik.values.email}
+                        {...formik.getFieldProps("firstName")}
+
                     />
                     {formik.errors.email ? (
                         <small className="form-text text-danger">
@@ -92,8 +90,7 @@ const RegisterForm = () => {
                         id="password"
                         name="password"
                         type="password"
-                        onChange={formik.handleChange}
-                        value={formik.values.password}
+                        {...formik.getFieldProps("firstName")}
                     />
                     {formik.errors.password ? (
                         <small className="form-text text-danger">
