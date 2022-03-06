@@ -35,3 +35,34 @@ nav {
   text-decoration: none;
   color: gray;
 }
+
+/*register and login*/
+.login-form-container {
+  margin-top: 5rem;
+}
+
+.register-form-container {
+  margin-top: 5rem;
+}
+
+label {
+  font-size: 1.5rem;
+}
+.register-cta {
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.register:hover {
+  text-decoration: none;
+}
+
+/*forgot and reset pass*/
+.password-forgot {
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.password-forgot:hover {
+  text-decoration: none;
+}
