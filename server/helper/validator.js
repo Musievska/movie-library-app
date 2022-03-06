@@ -2,12 +2,16 @@ const Joi = require('joi');
 
 const newUserValidation = (user) => {
     const schema = Joi.object({
-        username: Joi.string()
+        firstName: Joi.string()
             .alphanum()
-            .min(6)
+            .min(2)
             .max(20)
+            .required(),
+        lastName: Joi.string()
+            .alphanum()
             .required()
-            .unique(),
+            .min(3)
+            .max(20),
 
         password: JoiPassword.string()
             .required()
@@ -16,7 +20,7 @@ const newUserValidation = (user) => {
             .minOfSpecialCharacters(1)
             .minOfUppercase(1)
             .messages({
-                'password.min': `Password should be at least 8 characters`,
+                'password.min': `Password should be at least 6 characters`,
                 'password.max': `Password should be at most 20 characters`,
                 'password.minOfSpecialCharacters': `Password should contain at least one special character`,
                 'password.minOfUppercase': `Password should contain at least one upper case letter`

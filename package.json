@@ -19,5 +19,8 @@
   "homepage": "https://github.com/Musievska/movie-library-app#readme",
   "dependencies": {
     "concurrently": "^7.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
