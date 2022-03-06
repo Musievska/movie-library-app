@@ -59,7 +59,7 @@ const RegisterForm = () => {
                         id="lastName"
                         name="lastName"
                         type="text"
-                        {...formik.getFieldProps("firstName")}
+                        {...formik.getFieldProps("lastName")}
                     />
                     {formik.errors.lastName ? (
                         <small className="form-text text-danger">
@@ -74,7 +74,7 @@ const RegisterForm = () => {
                         id="email"
                         name="email"
                         type="email"
-                        {...formik.getFieldProps("firstName")}
+                        {...formik.getFieldProps("email")}
 
                     />
                     {formik.errors.email ? (
@@ -90,7 +90,7 @@ const RegisterForm = () => {
                         id="password"
                         name="password"
                         type="password"
-                        {...formik.getFieldProps("firstName")}
+                        {...formik.getFieldProps("password")}
                     />
                     {formik.errors.password ? (
                         <small className="form-text text-danger">
