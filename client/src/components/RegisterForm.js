@@ -1,8 +1,14 @@
 import React from 'react';
 import { useFormik } from 'formik'
 import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser } from './stateSlices/registerSlice';
 
-const RegisterForm = () => {
+const RegisterForm = ({ history }) => {
+    const dispatch = useDispatch();
+
+    const { status, userRegistered, error } = useSelector(state => state.register);
+    
     const formik = useFormik({
         initialValues: {
             firstName: '',

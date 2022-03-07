@@ -5,8 +5,8 @@ const cors = require('cors');
 const morgan = require('morgan');
 const db = require('./config/db');
 const app = express();
-const globalErrorHandler = require("./middleware/errorMiddleware")
 const globalErrorHandler = require("./helper/errorMiddleware");
+const userRoute = require('./routes/userRoute');
 const PORT = process.env.PORT || 5000
 
 require('dotenv').config();
