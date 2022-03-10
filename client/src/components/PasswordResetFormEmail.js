@@ -1,8 +1,13 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useSelector, useDispatch } from 'react-redux';
+import { sendPasswordResetEmail } from './stateSlices/passwordResetEmailSlice';
 
 const PasswordResetFormEmail = () => {
+    const { status, emailSent, error } = useSelector(
+        state => state.passwordResetEmail);
+    const dispatch = useDispatch();
 
     const formik = useFormik({
         initialValues: {
@@ -14,7 +19,7 @@ const PasswordResetFormEmail = () => {
                 .required("Please enter your email adress"),
         }),
         onSubmit: (values) => {
-            console.log(values);
+            dispatch(sendPasswordResetEmail(values));
         }
     });
 
@@ -25,6 +30,19 @@ const PasswordResetFormEmail = () => {
             </div>
             <form onSubmit={formik.handleSubmit}>
                 <div className="form-group col-10 col-sm-8 col-md-5 mx-auto mt-5">
+                    {emailSent && (
+                        <div className="alert alert-success password-reset-email"
+                        role="alert"
+                        >
+                            {emailSent.message}
+                            </div>
+                    )}
+                    {error && (
+                        <div className="alert alert-danger"
+                            role="alert">
+                            {error}
+                        </div>
+                    )}
                     <label htmlFor="email">Email Address</label>
                     <input
                         className="form-control form-control-lg"
@@ -41,6 +59,11 @@ const PasswordResetFormEmail = () => {
                 </div>
                 <div className="col-10 col-sm-8 col-md-5 mx-auto">
                     <button type="submit" className="btn btn-lg btn-primary btn-block">
+                        {status === 'loading' ? (
+                            <div className="spinner-border text-light" role="status">
+                            <span className="sr-only">Loading...</span>
+                            </div>
+                       ): null}{" "}
                         Request Password Reset
                     </button>
                 </div>

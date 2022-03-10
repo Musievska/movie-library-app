@@ -7,6 +7,7 @@ const db = require('./config/db');
 const app = express();
 const globalErrorHandler = require("./helper/errorMiddleware");
 const userRoute = require('./routes/userRoute');
+const passwordResetRoute = require('./routes/passwordResetRoute');
 const PORT = process.env.PORT || 5000
 
 require('dotenv').config();
