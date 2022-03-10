@@ -3,10 +3,10 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from './stateSlices/registerSlice';
+import { useNavigate } from "react-router-dom";
 
-
-const RegisterForm = ({ history }) => {
-    
+const RegisterForm = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch()
     const { status, userRegistered, error } = useSelector(state => state.register)
 
@@ -41,7 +41,7 @@ const RegisterForm = ({ history }) => {
     });
 
     if (userRegistered) {
-        history.push('/login');
+        navigate.push('/login');
     }
 
     return (

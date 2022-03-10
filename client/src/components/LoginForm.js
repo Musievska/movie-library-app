@@ -1,8 +1,16 @@
 import React from "react"
-import { Link } from "react-router-dom"
+import { Link,useNavigate } from "react-router-dom"
 import { useFormik } from "formik"
 import * as Yup from "yup"
+import { loginUser } from './stateSlices/loginSlice';
+import { useSelector, useDispatch } from 'react-redux';
+
+
 const LoginForm = () => {
+    const navigate = useNavigate();
+    const { status, loggedinUser, error } = useSelector(state =>state.login);
+    const dispatch = useDispatch()
+
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -15,9 +23,15 @@ const LoginForm = () => {
             password: Yup.string().required("Please enter your password"),
         }),
         onSubmit: async values => {
-            console.log(values)
+            dispatch(loginUser(values));
         },
     })
+
+    if (loggedinUser) {
+        localStorage.setItem('loggedinUser', JSON.stringify(loggedinUser));
+        navigate.push('/welcome')
+}
+
     return (
         <div className="login-form-container">
             <div className="col-10 col-sm-8 col-md-5 mx-auto">
@@ -25,7 +39,11 @@ const LoginForm = () => {
             </div>
             <form onSubmit={formik.handleSubmit}>
                 <div className="form-group col-10 col-sm-8 col-md-5 mx-auto mt-5">
-                    <label htmlFor="email">Email Address</label>
+                    {error && (
+                        <div className="alert alert-danger" role="alert">
+                            {error}
+                        </div>
+                    )}
                     <input
                         className="form-control form-control-lg"
                         id="email"
@@ -56,6 +74,11 @@ const LoginForm = () => {
                 </div>
                 <div className="col-10 col-sm-8 col-md-5 mx-auto">
                     <button type="submit" className="btn btn-lg btn-primary btn-block">
+                        {status === "loading" ? (
+                            <div className="spinner-border text-light" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                        ) : null}{" "}
                         Login
                     </button>
                 </div>
