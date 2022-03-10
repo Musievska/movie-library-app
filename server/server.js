@@ -17,11 +17,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(helmet());
 app.use(morgan('tiny'));
-app.use('api/users', userRoute);
+
 app.use(globalErrorHandler);
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+app.use('/api/users', userRoute);
+app.use('/account', passwordResetRoute);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))

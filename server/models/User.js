@@ -27,6 +27,14 @@ const UserSchema = new mongoose.Schema({
         trim: true
     },
 
+    passwordResetToken: {
+        type: String
+    },
+
+    passwordResetExpires: {
+        type: Date
+    },
+
     userFavorites: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Movie'
