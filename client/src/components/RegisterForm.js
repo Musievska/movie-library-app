@@ -4,10 +4,13 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from './stateSlices/registerSlice';
 
-const RegisterForm = ({ history }) => {
-    const dispatch = useDispatch();
 
-    const { status, userRegistered, error } = useSelector(state => state.register);
+const RegisterForm = ({ history }) => {
+    
+    const dispatch = useDispatch()
+    const { status, userRegistered, error } = useSelector(state => state.register)
+
+
     
     const formik = useFormik({
         initialValues: {
@@ -33,9 +36,13 @@ const RegisterForm = ({ history }) => {
         }),
 
         onSubmit: values => {
-            console.log(values)
+            dispatch(registerUser(values));
         },
     });
+
+    if (userRegistered) {
+        history.push('/login');
+    }
 
     return (
         <div className="register-form-container">
@@ -44,6 +51,11 @@ const RegisterForm = ({ history }) => {
             </div>
             <form onSubmit={formik.handleSubmit}>
                 <div className="form-group col-10 col-sm-8 col-md-5 mx-auto mt-5">
+                    {error && (
+                        <div className="alert alert-danger" role="alert">
+                        {error}
+                        </div>
+                        )}
                     <label htmlFor="firstName">First Name</label>
                     <input
                         className="form-control form-control-lg"
@@ -109,6 +121,11 @@ const RegisterForm = ({ history }) => {
                         type="submit"
                         className="btn btn-lg btn-primary btn-block register-button"
                     >
+                        {status === "loading" ? (
+                            <div className="spinner-border text-light" role="status">
+                            <span className="sr-only">Loading...</span>
+                            </div>
+                        ): null}{" "}
                         Register
                     </button>
                 </div>

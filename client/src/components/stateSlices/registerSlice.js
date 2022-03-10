@@ -12,7 +12,7 @@ export const registerUser = createAsyncThunk(
     async (registrationFormData, { rejectWithValue }) => {
         try {
             const { data } = await axios.post(
-                'api/users/register',
+                '/api/users/register',
                 registrationFormData
             )
             return data;
@@ -33,6 +33,8 @@ export const registerSlice = createSlice({
         [registerUser.fulfilled]: (state, action) => {
             state.status = 'succeeded';
             state.userRegistered = true;
+            state.user = action.payload;
+
         },
         [registerUser.rejected]: (state, action) => {
             state.status = 'failed';

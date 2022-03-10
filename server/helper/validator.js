@@ -36,8 +36,8 @@ const newUserValidation = (user) => {
 
 const userLoginValidation = (user) => {
     const schema = Joi.object({
-        email: Joi.string().email.required(),
-        password: Joi.string().password.required()
+        email: Joi.string().email().required(),
+        password: Joi.string().required()
     });
 
     return schema.validate(user);
