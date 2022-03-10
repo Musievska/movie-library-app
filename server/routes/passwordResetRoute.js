@@ -8,7 +8,7 @@ const router = express.Router();
 dotenv.config();
 sendGridMail.setApiKey(process.env.SG_APIKEY);
 
-router.post('/password/forgot',
+router.post('/forgot',
     asyncHandler(async (req, res, next) => {
         const user = await User.findOne({ email: req.bodyemai });
 
@@ -49,5 +49,27 @@ router.post('/password/forgot',
         next(err);
     }
     }));
+
+router.post(
+    './reset/token:',
+    asyncHandler(async (req, res, next) => {
+        const user = await User.findOne({
+            passwordResetToken: req.params.token,
+            passwordResetExpires: { $gt: Date.now() }
+        });
+
+        if (user) {
+            user.password = req.body.password;
+            user.passwordResetToken = undefined;
+            user.passwordResetExpires = undefined;
+            const updateUser = await user.save();
+            res.json(updateUser);
+        } else {
+            const err = new Error(`The token is invalid ot has expired`);
+            err.status = 404;
+            next(err);
+        }
+    })
+    )
 
 module.exports = router;

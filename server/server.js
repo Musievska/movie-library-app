@@ -5,7 +5,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const db = require('./config/db');
 const app = express();
-const globalErrorHandler = require("./helper/errorMiddleware");
+const { globalErrorHandler, notFound } = require("./helper/errorMiddleware").default;
 const userRoute = require('./routes/userRoute');
 const passwordResetRoute = require('./routes/passwordResetRoute');
 const PORT = process.env.PORT || 5000
@@ -20,8 +20,18 @@ app.use(helmet());
 app.use(morgan('tiny'));
 
 app.use(globalErrorHandler);
+app.use(notFound);
 
 app.use('/api/users', userRoute);
 app.use('/account', passwordResetRoute);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/client/build")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
+
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
