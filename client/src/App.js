@@ -5,14 +5,16 @@ import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import Welcome from './components/Welcome';
 import PasswordResetFormEmail from './components/PasswordResetFormEmail';
-
+import PasswordResetFormPassword from './components/PasswordResetFormPassword';
 
 
 const App = () => {
   return (
     <>
       <Header/>
-    <Routes>
+      <Routes>
+        <Route path='/password/reset/:token'
+        element={<PasswordResetFormPassword/>}/>
         <Route
           path='/account/forgot'
           element={<PasswordResetFormEmail/>}
