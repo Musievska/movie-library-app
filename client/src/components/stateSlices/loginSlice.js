@@ -31,9 +31,11 @@ export const loginSlice = createSlice({
     extraReducers: {
         [loginUser.pending]: (state, action) => {
             state.status = 'loading';
+
         },
         [loginUser.fulfilled]: (state, action) => {
             state.status = 'succeeded';
+
         },
         [loginUser.rejected]: (state, action) => {
             state.status = 'failed';

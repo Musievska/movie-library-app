@@ -1,7 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const crypto = require('crypto');
-const asyncHandler = require('asyncHandler');
+const asyncHandler = require('express-async-handler')
 const User = require('../models/User');
 const sendGridMail = require('@sendgrid/mail');
 const router = express.Router();
@@ -23,25 +23,25 @@ router.post('/forgot',
         
 
         const passwordResetURL = `https://${req.headers.host}/password/reset/${user.passwordResetToken}`;
-        const message = {
-            to: user.email,
-            from: 'dilyana.musievska@gmail.com',
-            subject: 'Reset your password',
-            html: `<h1>Password reset instructions</h1>
+            const message = {
+                to: user.email,
+                from: 'dilyana.musievska@gmail.com',
+                subject: 'Reset your password',
+                html: `<h1>Password reset instructions</h1>
                     <p>Click on the link below to reset your password</p>
                     <a>href=${passwordResetURL}</a>
                     <p>The link will expire in one hour</p>`
-        }
-             (async () => {
-                try {
-                    await sendGridMail.send(message)
-                } catch (err) {
-                    console.error(err);
-                    if (err.response) {
-                        console.error(err.response.body);
+            }
+                (async () => {
+                    try {
+                        await sendGridMail.send(message)
+                    } catch (err) {
+                        console.error(err);
+                        if (err.response) {
+                            console.error(err.response.body);
+                        }
                     }
-                }
-            })()
+                })();
 
     } else {
         const err = new Error(`The email is not registred`);
